@@ -5,11 +5,11 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.test import BaseTestCase
+from upgrade_server.test import BaseTestCase
 
 
-class TestDefaultController(BaseTestCase):
-    """DefaultController integration test stubs"""
+class TestFilesManagementController(BaseTestCase):
+    """FilesManagementController integration test stubs"""
 
     def test_files_filename_get(self):
         """Test case for files_filename_get
@@ -29,17 +29,6 @@ class TestDefaultController(BaseTestCase):
         """
         response = self.client.open(
             '/upgrade/files',
-            method='GET')
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
-
-    def test_version_get(self):
-        """Test case for version_get
-
-        Gets api version
-        """
-        response = self.client.open(
-            '/upgrade/version',
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))

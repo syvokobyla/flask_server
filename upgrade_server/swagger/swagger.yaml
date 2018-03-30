@@ -1,17 +1,17 @@
 ---
 swagger: "2.0"
 info:
-  description: "A simple API to learn how to write OpenAPI Specification"
+  description: "Simple server for upgrade files hosting"
   version: "1.0.0"
-  title: "Simple API"
-host: "simple.api"
+  title: "Upgrade server"
 basePath: "/upgrade"
 schemes:
 - "http"
-- "https"
 paths:
   /files:
     get:
+      tags:
+      - "files_management"
       summary: "Gets files list."
       description: "Returns a list containing all files."
       operationId: "files_get"
@@ -23,9 +23,11 @@ paths:
             type: "array"
             items:
               type: "string"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+      x-swagger-router-controller: "upgrade_server.controllers.files_management_controller"
   /files/{filename}:
     get:
+      tags:
+      - "files_management"
       summary: "Gets a file binary"
       description: "Returns a single file by filename"
       operationId: "files_filename_get"
@@ -42,9 +44,11 @@ paths:
             type: "file"
         404:
           description: "The file does not exists."
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+      x-swagger-router-controller: "upgrade_server.controllers.files_management_controller"
   /version:
     get:
+      tags:
+      - "service_api"
       summary: "Gets api version"
       description: "Returns a version of the api."
       operationId: "version_get"
@@ -54,5 +58,5 @@ paths:
           description: "A version of api."
           schema:
             type: "string"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+      x-swagger-router-controller: "upgrade_server.controllers.service_api_controller"
 definitions: {}

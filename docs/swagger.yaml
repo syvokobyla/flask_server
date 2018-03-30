@@ -1,0 +1,58 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: Upgrade server
+  description: Simple server for upgrade files hosting
+
+schemes:
+  - http
+  
+basePath: /upgrade
+
+paths: 
+  /files:
+    get:
+      tags:
+        - "files_management"    
+      summary: Gets files list.
+      description: Returns a list containing all files.
+      responses:
+        200:
+          description: A list of files
+          schema:
+            type: array
+            items:
+               type: string
+  
+  /files/{filename}:
+    get:
+        tags:
+          - "files_management"        
+        summary: Gets a file binary
+        description: Returns a single file by filename
+        parameters:
+          - name: filename
+            in: path
+            required: true
+            description: The filename
+            type: string
+        responses:
+          200:
+            description: A file binary
+            schema:
+              type: file
+          404:
+            description: The file does not exists. 
+  
+  /version:
+    get:
+      tags:
+        - "service_api"        
+      summary: Gets api version
+      description: Returns a version of the api.
+      responses:
+        200:
+          description: A version of api.
+          schema:
+            type: string
