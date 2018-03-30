@@ -7,6 +7,8 @@ info:
 basePath: "/upgrade"
 schemes:
 - "http"
+produces:
+- "application/json"
 paths:
   /files:
     get:
@@ -20,9 +22,7 @@ paths:
         200:
           description: "A list of files"
           schema:
-            type: "array"
-            items:
-              type: "string"
+            $ref: "#/definitions/files"
       x-swagger-router-controller: "upgrade_server.controllers.files_management_controller"
   /files/{filename}:
     get:
@@ -57,6 +57,31 @@ paths:
         200:
           description: "A version of api."
           schema:
-            type: "string"
+            $ref: "#/definitions/version"
       x-swagger-router-controller: "upgrade_server.controllers.service_api_controller"
-definitions: {}
+definitions:
+  files:
+    type: "array"
+    items:
+      $ref: "#/definitions/file"
+  file:
+    type: "object"
+    required:
+    - "file_name"
+    - "file_size"
+    properties:
+      file_name:
+        type: "string"
+        example: "my_little_kitty.bin"
+      file_size:
+        type: "integer"
+        example: 15
+  version:
+    required:
+    - "version"
+    properties:
+      version:
+        type: "string"
+        example: "1.0"
+    example:
+      version: "1.0"

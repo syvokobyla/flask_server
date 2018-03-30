@@ -3,9 +3,10 @@ import connexion
 import six
 import os
 
+
 from flask import send_file
 from upgrade_server import util
-
+from upgrade_server.models.file import File  # noqa: E501
 
 def files_filename_get(filename):  # noqa: E501
     """Gets a file binary
@@ -32,4 +33,12 @@ def files_get():  # noqa: E501
     :rtype: List[str]
     """
     app = flask.current_app
-    return os.listdir(app.config['FILES_PATH'])
+    resp = []
+
+    path = app.config['FILES_PATH']
+    fnames = os.listdir(path)
+    fsizes = [os.path.getsize(os.path.join(path, fname)) for fname in fnames]
+
+    for name, size in zip(fnames, fsizes):
+        resp.append(File(name, size))
+    return resp

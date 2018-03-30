@@ -1,7 +1,7 @@
 FROM debian
 
 RUN apt-get -yqq update
-RUN apt-get -yqq install python3-pip
+RUN apt-get -yqq install python3 pip3
 
 
 RUN mkdir -p /usr/src/app
@@ -17,4 +17,4 @@ EXPOSE 8080
 
 ENTRYPOINT ["python3"]
 
-CMD ["-m", "swagger_server"]
+CMD ["-m", "upgrade_server", "--config", "/usr/src/app/configs/prod.ini"]

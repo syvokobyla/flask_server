@@ -7,7 +7,38 @@ info:
 
 schemes:
   - http
-  
+produces:
+  - application/json
+
+definitions:
+
+  files:
+    type: array
+    items:
+      $ref: '#/definitions/file'
+      
+  file:
+    type: object
+    required:
+      - file_name
+      - file_size
+    properties:
+      file_name:
+        type: string
+        example: "my_little_kitty.bin"
+      file_size:
+        type: integer
+        example: 15
+
+
+  version:
+    required:
+    - version
+    properties:
+      version:
+        type: string
+        example: "1.0"
+
 basePath: /upgrade
 
 paths: 
@@ -21,9 +52,7 @@ paths:
         200:
           description: A list of files
           schema:
-            type: array
-            items:
-               type: string
+             $ref: '#/definitions/files'
   
   /files/{filename}:
     get:
@@ -54,5 +83,5 @@ paths:
       responses:
         200:
           description: A version of api.
-          schema:
-            type: string
+          schema: 
+            $ref: '#/definitions/version'
