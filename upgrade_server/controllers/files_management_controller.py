@@ -31,4 +31,5 @@ def files_get():  # noqa: E501
 
     :rtype: List[str]
     """
+    app = flask.current_app
     return os.listdir(app.config['FILES_PATH'])
