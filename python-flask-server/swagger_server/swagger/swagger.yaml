@@ -1,0 +1,58 @@
+---
+swagger: "2.0"
+info:
+  description: "A simple API to learn how to write OpenAPI Specification"
+  version: "1.0.0"
+  title: "Simple API"
+host: "simple.api"
+basePath: "/upgrade"
+schemes:
+- "http"
+- "https"
+paths:
+  /files:
+    get:
+      summary: "Gets files list."
+      description: "Returns a list containing all files."
+      operationId: "files_get"
+      parameters: []
+      responses:
+        200:
+          description: "A list of files"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /files/{filename}:
+    get:
+      summary: "Gets a file binary"
+      description: "Returns a single file by filename"
+      operationId: "files_filename_get"
+      parameters:
+      - name: "filename"
+        in: "path"
+        description: "The filename"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A file binary"
+          schema:
+            type: "file"
+        404:
+          description: "The file does not exists."
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /version:
+    get:
+      summary: "Gets api version"
+      description: "Returns a version of the api."
+      operationId: "version_get"
+      parameters: []
+      responses:
+        200:
+          description: "A version of api."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions: {}
